@@ -111,7 +111,9 @@ button,select,.shape{touch-action:manipulation;-webkit-tap-highlight-color:trans
 .tbtn svg{width:16px;height:16px}
 .tbtn.play{width:46px;height:46px;border-radius:50%;background:var(--accent);border-color:transparent;color:var(--accent-ink)}
 .tbtn.play svg{width:19px;height:19px}
-.readout{font:600 15px var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.readout{font:600 15px var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap;min-width:7ch}
+/* fixed widths so the bar never re-wraps (and resizes the stage) while playing */
+@media (min-width:641px){#keyTxt{display:inline-block;min-width:5.6em;text-align:left}}
 .readout span{color:var(--ink-3);font-weight:500}
 .btn.rec[aria-pressed="true"]{background:color-mix(in srgb,var(--rec) 14%,var(--panel));border-color:color-mix(in srgb,var(--rec) 40%,var(--line));color:var(--rec)}
 .btn.rec .dot{width:11px;height:11px;border-radius:50%;border:2px solid currentColor}

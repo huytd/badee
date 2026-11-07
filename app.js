@@ -95,10 +95,16 @@ function applyTheme(){
 }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme);
 new MutationObserver(applyTheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+let lastW=0,lastH=0;
 function resize(){
   const r=view.getBoundingClientRect();
-  renderer.setSize(Math.max(1,r.width),Math.max(1,r.height),false);
-  camera.aspect=r.width/Math.max(1,r.height);camera.updateProjectionMatrix();
+  const w=Math.max(1,Math.round(r.width)),h=Math.max(1,Math.round(r.height));
+  if(w===lastW&&h===lastH) return;
+  lastW=w;lastH=h;
+  // resizing a WebGL canvas clears it; draw straight away so no blank (black) frame gets painted
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;camera.updateProjectionMatrix();
+  renderer.render(scene,camera);
 }
 
 /* ---------- objects & poses ---------- */
@@ -519,7 +525,9 @@ applyTheme();syncSettings();setTool('translate');updatePlayBtn();resize();
 select(first);
 layoutTimeline();applyFrame();
 hist.stack=[JSON.stringify(snap())];hist.i=0;updateUndo();
-new ResizeObserver(()=>{resize();layoutTimeline();}).observe(view);
-window.addEventListener('resize',layoutTimeline);
+let lastTW=0;
+function relayoutIfNeeded(){ if(tracks.clientWidth!==lastTW){ lastTW=tracks.clientWidth; layoutTimeline(); } }
+new ResizeObserver(()=>{resize();relayoutIfNeeded();}).observe(view);
+window.addEventListener('resize',relayoutIfNeeded);
 requestAnimationFrame(tick);
 })();

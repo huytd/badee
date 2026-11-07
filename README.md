@@ -1,4 +1,4 @@
-# Clayframe
+# Badee
 
 A simple, browser-based 3D modelling and animation tool for people who have never used 3D software.
 Add basic shapes, move, turn and resize them, then animate them with keyframes. Onion skinning shows

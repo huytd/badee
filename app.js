@@ -4,7 +4,7 @@ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const DEG=Math.PI/180;
 const SWATCHES=['#E8684A','#F2B12A','#5DBB7A','#4FA3D9','#9B7BD8','#F28DB2','#E9E4DA','#3C4250'];
-const STORE='clayframe.v1';
+const STORE='badee.v1';
 const COARSE=matchMedia('(pointer:coarse)').matches;
 
 /* ---------- shapes ---------- */
